@@ -47,5 +47,10 @@ public class CourseController {
 
     }
 
+    @GetMapping("/filterCourses/{minPrice}/{maxPrice}/{minDuration}/{maxDuration}")
+    public ResponseEntity filterCourses(@PathVariable Double minPrice,@PathVariable Double maxPrice, @PathVariable Integer minDuration, @PathVariable Integer maxDuration){
+      return ResponseEntity.status(200).body(courseService.filterCourses(minPrice,maxPrice,minDuration,maxDuration));
+    }
+
 
 }

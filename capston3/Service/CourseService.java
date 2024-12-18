@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -72,8 +73,20 @@ public class CourseService {
 
 
 
+//Raghad
+    public List<CourseDTO> filterCourses(Double minPrice, Double maxPrice, Integer minDuration, Integer maxDuration) {
+        // Fetch filtered courses from the repository
+        List<Course> courses = courseRepository.filterCourses(minPrice, maxPrice, minDuration, maxDuration);
 
-
-
-
+        // Map courses to CourseDTOs
+        return courses.stream().map(course -> new CourseDTO(
+                course.getName(),
+                course.getDescription(),
+                course.getPrice(),
+                course.getDuration() // Include trainer name in the DTO
+        )).collect(Collectors.toList());
     }
+}
+
+
+
